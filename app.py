@@ -1,5 +1,7 @@
 from flask import Flask
 import requests
+from decouple import config
+from decouple import config
 
 app = Flask(__name__)
 
@@ -7,12 +9,12 @@ app = Flask(__name__)
 def hello():
     return 'hello world'
 
-api_url = 'https://api.telegram.org/'
-token = '998908682:AAEYcmyM_5cdp_F_9q6lojui1ji8G6wGhNo'
-chat_id = '1017433374'
+api_url = 'https://api.telegram.org'
+token = config('TOKEN')
+chat_id = config('CHAT_ID')
 
 @app.route('/send/<text>')
-def send():
+def send(text):
     res = requests.get(f'{api_url}/bot{token}/sendMessage?chat_id={chat_id}&text={text}')
     return 'ok!'
 
